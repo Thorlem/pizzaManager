@@ -4,7 +4,7 @@ class Topping < ApplicationRecord
     # Validations
     validates :name, presence: true, uniqueness: { case_sensitive: false },
                 length: { minimum: 3 },
-                format: { with: /\A[a-zA-Z]+\z/, message: "Only letters allowed in the name" }
+                format: { with: /\A[a-zA-Z\s]+\z/, message: "Only letters allowed in the name" }
 
   before_destroy :delete_associated
 
