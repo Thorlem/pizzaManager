@@ -2,7 +2,8 @@ require "test_helper"
 
 class ToppingsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @topping = toppings(:one)
+    Topping.destroy_all
+    @topping = Topping.create!(name: "Test Topping")
   end
 
   test "should get index" do
@@ -17,7 +18,7 @@ class ToppingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create topping" do
     assert_difference("Topping.count") do
-      post toppings_url, params: { topping: { name: @topping.name } }
+      post toppings_url, params: { topping: { name: "Test" } }
     end
 
     assert_redirected_to topping_url(Topping.last)
@@ -34,7 +35,11 @@ class ToppingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update topping" do
-    patch topping_url(@topping), params: { topping: { name: @topping.name } }
+    patch topping_url(@topping), params: { topping: { name: "Different name" } }
+
+    @topping.reload
+
+    assert_equal @topping.name, "Different name"
     assert_redirected_to topping_url(@topping)
   end
 

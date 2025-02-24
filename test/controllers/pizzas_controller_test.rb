@@ -2,7 +2,9 @@ require "test_helper"
 
 class PizzasControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @pizza = pizzas(:one)
+    Pizza.destroy_all
+    @pizza = Pizza.create!(name: "Test Pizza", toppings: [ Topping.create!(name: "Test Topping") ])
+    @topping = Topping.create!(name: "Second Test Topping")
   end
 
   test "should get index" do
@@ -17,10 +19,11 @@ class PizzasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create pizza" do
     assert_difference("Pizza.count") do
-      post pizzas_url, params: { pizza: { name: @pizza.name } }
+      post pizzas_url, params: { pizza: { name: "Test",  topping_ids: [ @topping.id ] } }
     end
 
     assert_redirected_to pizza_url(Pizza.last)
+    assert_equal "Test", Pizza.last.name
   end
 
   test "should show pizza" do
@@ -34,7 +37,11 @@ class PizzasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update pizza" do
-    patch pizza_url(@pizza), params: { pizza: { name: @pizza.name } }
+    patch pizza_url(@pizza), params: { pizza: { name: "Test", topping_ids: [] } }
+
+    @pizza.reload
+
+    assert_equal "Test", @pizza.name
     assert_redirected_to pizza_url(@pizza)
   end
 
