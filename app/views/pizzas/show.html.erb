@@ -1,0 +1,24 @@
+<p style="color: green"><%= notice %></p>
+<div class="bg-light">
+  <div class="d-flex p-3 justify-content-between">
+    <%= render @pizza %>
+    <div class="d-flex align-items-center">
+      <%= link_to "Edit this pizza", edit_pizza_path(@pizza), class:"btn btn-warning" %>
+      <%= link_to "Back to pizzas", pizza_path, class:"btn btn-primary" %>
+    </div>
+  </div>
+  <div class="p-3">
+    <% if @pizza.toppings.any? %>
+      <h3>Toppings:</h3>
+      <% @pizza.toppings.each do |topping| %>
+        <%= link_to topping.name, topping_path(topping), class:"btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <h3>No toppings</h3>
+    <% end %>
+  </div>
+</div>
+<div class="d-flex justify-content-end m-3">
+  <%= button_to "Destroy this pizza", @pizza, method: :delete, class:"btn btn-danger" %>
+</div>
+

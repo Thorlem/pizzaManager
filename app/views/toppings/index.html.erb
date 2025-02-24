@@ -1,0 +1,28 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Toppings" %>
+
+<h1>Toppings</h1>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @toppings.each do |topping| %>
+      <tr>
+        <td><%= topping.name %></td>
+        <td>
+          <%= link_to 'Show', topping_path(topping), class:"btn btn-primary" %> 
+          <%= link_to 'Edit', edit_topping_path(topping), class:"btn btn-warning" %> 
+          <%= link_to 'Delete', topping_path(topping), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New topping", new_topping_path, class:"btn btn-primary" %>

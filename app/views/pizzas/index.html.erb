@@ -1,0 +1,38 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Pizzas" %>
+
+<h1>Pizzas</h1>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Toppings</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pizzas.each do |pizza| %>
+      <tr>
+        <td><%= pizza.name %></td>
+        <td>
+          <% if pizza.toppings.any? %>
+            <% pizza.toppings.each do |topping| %>
+              <%= link_to topping.name, topping_path(topping), class:"btn btn-primary" %>
+            <% end %>
+          <% else %>
+            No toppings
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Show', pizza_path(pizza), class:"btn btn-primary" %> 
+          <%= link_to 'Edit', edit_pizza_path(pizza), class:"btn btn-warning" %> 
+          <%= link_to 'Delete', pizza_path(pizza), method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Pizza', new_pizza_path, class:"btn btn-primary" %>

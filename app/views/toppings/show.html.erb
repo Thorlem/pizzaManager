@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="d-flex p-3 bg-light justify-content-between">
+  <%= render @topping %>
+  <div class="d-flex align-items-center">
+    <%= link_to "Edit this topping", edit_topping_path(@topping), class:"btn btn-warning" %>
+    <%= link_to "Back to toppings", toppings_path, class:"btn btn-primary" %>
+  </div>
+</div>
+<div class="d-flex justify-content-end m-3">
+  <%= button_to "Destroy this topping", @topping, method: :delete, class:"btn btn-danger" %>
+</div>
+
+
